@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd" >
+
+		
+	<!-- DAO -->
+    <bean id="workflow-formscarto.formsCartoTaskConfigDAO" 
+    	class="fr.paris.lutece.plugins.workflow.modules.formscarto.business.FormsCartoTaskConfigDAO" />
+     <bean id="worklow-forms.editFormResponseConfigValueCartoDao"
+        class="fr.paris.lutece.plugins.workflow.modules.formscarto.business.EditFormResponseConfigValueCartoDao" />
+     <bean id="tacheformscarto.editFormsCartoUnitTreeDAO"
+        class="fr.paris.lutece.plugins.workflow.modules.formscarto.business.EditFormsCartoUnitTreeDAO" />
+	
+	<!-- Service Bean -->
+    <bean id="workflow-formscarto.formsCartoTaskService" 
+        class="fr.paris.lutece.plugins.workflow.modules.formscarto.service.FormsCartoTaskService"
+        p:taskConfigDAO-ref="workflow-formscarto.formsCartoTaskConfigDAO" />
+        
+	<!-- Task Type -->
+    <bean id="workflow-formscarto.formsCartoTypeTask" 
+        class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
+        p:key="formsCartoTask" 
+        p:titleI18nKey="module.workflow.formscarto.task.formscartotask.title" 
+        p:beanName="workflow-formscarto.formsCartoTask"
+        p:configBeanName="workflow-formscarto.formsCartoTaskConfig"
+        p:configRequired="true"
+        p:formTaskRequired="false"
+        p:taskForAutomaticAction="true" />
+	
+	<!--Task Bean -->
+    <bean id="workflow-formscarto.formsCartoTask" 
+        class="fr.paris.lutece.plugins.workflow.modules.formscarto.service.FormsCartoTask" 
+        scope="prototype" />
+	
+	<!-- Config Bean-->
+    <bean id="workflow-formscarto.formsCartoTaskConfig" 
+        class="fr.paris.lutece.plugins.workflow.modules.formscarto.business.FormsCartoTaskConfig" 
+        scope="prototype" />
+
+	<!-- Component Bean -->
+    <bean id="workflow-formscarto.formsCartoTaskComponent" 
+        class="fr.paris.lutece.plugins.workflow.modules.formscarto.web.FormsCartoTaskComponent" 
+        p:taskType-ref="workflow-formscarto.formsCartoTypeTask"
+        p:taskConfigService-ref="workflow-formscarto.formsCartoTaskService" />
+
+
+</beans>
