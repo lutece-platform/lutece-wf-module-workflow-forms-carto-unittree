@@ -42,39 +42,24 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
-import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.geojson.GeoJsonReader;
 
 import fr.paris.lutece.api.user.User;
 import fr.paris.lutece.plugins.carto.business.DataLayer;
 import fr.paris.lutece.plugins.carto.business.DataLayerHome;
-import fr.paris.lutece.plugins.carto.business.DataLayerMapTemplate;
-import fr.paris.lutece.plugins.carto.business.DataLayerMapTemplateHome;
-import fr.paris.lutece.plugins.forms.business.Form;
 import fr.paris.lutece.plugins.forms.business.FormQuestionResponse;
 import fr.paris.lutece.plugins.forms.business.FormQuestionResponseHome;
 import fr.paris.lutece.plugins.forms.business.FormResponse;
 import fr.paris.lutece.plugins.forms.business.FormResponseHome;
-import fr.paris.lutece.plugins.forms.business.FormResponseStep;
-import fr.paris.lutece.plugins.forms.business.FormResponseStepHome;
 import fr.paris.lutece.plugins.forms.business.Question;
 import fr.paris.lutece.plugins.forms.business.QuestionHome;
-import fr.paris.lutece.plugins.forms.business.StepHome;
-import fr.paris.lutece.plugins.forms.service.EntryServiceManager;
 import fr.paris.lutece.plugins.forms.service.FormResponseService;
-import fr.paris.lutece.plugins.forms.service.cache.FormsCacheService;
-import fr.paris.lutece.plugins.forms.util.FormsConstants;
-import fr.paris.lutece.plugins.forms.web.entrytype.IEntryDataService;
 import fr.paris.lutece.plugins.genericattributes.business.Field;
 import fr.paris.lutece.plugins.genericattributes.business.Response;
 import fr.paris.lutece.plugins.genericattributes.business.ResponseFilter;
@@ -152,13 +137,52 @@ public class FormsCartoTask extends SimpleTask
 		FormsCartoTaskConfig config = _taskConfigService.findByPrimaryKey( this.getId( ) );
 		String strJsonGeolocPoly = null;
 		String strValueUnitTree = null;
+		String responseValueListClosed = null;
         if ( config != null )
         {
         	Question questionListLayerCarto = config.getQuestionListLayerCarto();
         	String responseValue = getResponseValue( config.getQuestionListLayerCarto().getId() );
         	
+        	FormResponse formResponseValueList = FormResponseHome.findByPrimaryKey( nIdResource );
+        	//formResponseValueList.getSteps().get(0).getQuestions().get(0).getEntryResponse().get(0).getResponseValue();
+        	//List<FormQuestionResponse> lstQuestionResponse = FormQuestionResponseHome.findFormQuestionResponseByQuestion( config.getQuestionListValueClosed().getId() );
+        	List<FormQuestionResponse> lstQuestionResponse = FormQuestionResponseHome.getFormQuestionResponseListByFormResponse( formResponseValueList.getId() );
+        	for ( FormQuestionResponse fqr : lstQuestionResponse )
+        	{
+        		//responseValue = getResponseValue( fqr.getQuestion().getId() );
+        		for ( Response ent : fqr.getEntryResponse() )
+				{
+        			//System.out.println("Le field est " + ent.getField( ));
+        			System.out.println("Le field est " + ent.getEntry().getCode( ) );
+        			System.out.println("La value est " + ent.getResponseValue());
+        			
+        			if ( ent.getResponseValue() != null && ent.getResponseValue().contains( "coordinates" ) )
+        			{
+        				responseValue = ent.getResponseValue();
+        			}
+        			
+        			if ( ent.getEntry().getCode( ).equals( config.getQuestionListValueClosed().getCode() ) ) {
+            			responseValueListClosed = ent.getResponseValue();
+            		}
+				}
+        	}
         	
-        	String responseValueListClosed = getResponseValue( config.getQuestionListValueClosed().getId() );
+            
+            /*
+            List<FormQuestionResponse> listFormQuestionResponse = FormQuestionResponseHome
+                    .getFormQuestionResponseListByFormResponse( formResponseValueList.getId( ) );
+        	for ( FormQuestionResponse fqr : listFormQuestionResponse )
+        	{
+        		if ( fqr.getEntryResponse().get(0).getField().getCode( ).equals( config.getQuestionListValueClosed().getCode() ) ) {
+        			responseValueListClosed = fqr.getEntryResponse().get(0).getField().getValue();
+        		}
+        	}
+        	*/
+        	
+        	
+        	
+        	
+        	//String responseValueListClosed = getResponseValue( config.getQuestionListValueClosed().getId() );
         	SolrSearchEngine engine = SolrSearchEngine.getInstance( );
         	
         	
@@ -233,7 +257,7 @@ public class FormsCartoTask extends SimpleTask
         	FormResponse formResponse = FormResponseHome.findByPrimaryKey( nIdResource );
             if ( formResponse == null )
             {
-                return true;
+                return false;
             }
         	
         	FormQuestionResponse questionResponse = new FormQuestionResponse( );
@@ -284,7 +308,7 @@ public class FormsCartoTask extends SimpleTask
         if (strValueUnitTree != null)
         	return true;
         else
-        	return true;
+        	return false;
     }   
 	
    /**

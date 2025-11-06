@@ -2,14 +2,14 @@
 		
 		<@messages errors=errors />
 
-		<@formGroup labelKey='#i18n{task.config.labelFormSelect}' labelFor='form_select' class='align-items-center'>
+		<@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelFormSelect}' labelFor='form_select' class='align-items-center'>
 			<@inputGroup>
 				<@select name='form_select' items=lstForms default_value='${id_form!}' />
 				<@button type='submit' buttonIcon='check' name='apply' value='select_form_config' />
 			</@inputGroup>
 		</@formGroup>
 		<#if id_form??>
-		<@formGroup labelKey='#i18n{task.config.labelFormStepSelect}' labelFor='step_select' class='align-items-center'>
+		<@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelFormStepSelect}' labelFor='step_select' class='align-items-center'>
 			<@inputGroup>
 				<@select name='step_select' items=list_step default_value='${id_step!}' />
 				<@button type='submit' buttonIcon='check' name='apply' value='select_step_config' />
@@ -18,7 +18,7 @@
 		</#if>
 
 		<#if id_step??>
-		<@formGroup labelKey='#i18n{task.config.labelFormValuesList}' labelFor='question_select' class='align-items-center'>
+		<@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelFormValuesList}' labelFor='question_select' class='align-items-center'>
 			<@inputGroup>
 				<@select name='question_select' items=question_list default_value='${id_question!}' />
 				<@button type='submit' buttonIcon='check' name='apply' value='select_question_config' />
@@ -27,7 +27,7 @@
 		</#if>			
 
 		<#if id_step??>
-		<@formGroup labelKey='#i18n{task.config.labelFormMappingField}' labelFor='question_select_carto' class='align-items-center'>
+		<@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelFormMappingField}' labelFor='question_select_carto' class='align-items-center'>
 			<@inputGroup>
 				<@select name='question_select_carto' items=question_list_carto default_value='${id_question_carto!}' />
 				<@button type='submit' buttonIcon='check' name='apply' value='select_question_config_carto' />
@@ -36,7 +36,7 @@
 		</#if>
 			
 		<#if id_step??>
-		<@formGroup labelKey='#i18n{task.config.labelFormUnitTreeTargetField}' labelFor='question_select_unittree' class='align-items-center'>
+		<@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelFormUnitTreeTargetField}' labelFor='question_select_unittree' class='align-items-center'>
 			<@inputGroup>
 				<@select name='question_select_unittree' items=question_list_unittree default_value='${id_question_unittree!}' />
 				<@button type='submit' buttonIcon='check' name='apply' value='select_question_config_unittree' />
@@ -46,22 +46,22 @@
 			
 		<#if id_question_carto?? && id_question??>
 			<@formGroup>
-				   <@aButton title='#i18n{task.config.btnNewConfiguration}' buttonIcon='upload' size='' params='data-toggle="modal" data-target="#importJsonModal"'  />
+				   <@aButton title='#i18n{module.workflow.formscarto.task.config.btnNewConfiguration}' size='' params='data-toggle="modal" data-target="#importJsonModal"'  />
 			</@formGroup>
 			
 			<#list lst_carto_forms_unittree as carto_forms_unit>
 			<@div class='bloc-champs' id='bloc_ID'>
 				<hr />
-				   <@formGroup labelKey='#i18n{task.config.labelValueSelectCartoRead}' labelFor='value_select_carto_read' class='align-items-center'>
-					<@select id="value_select_carto_read" name="value_select_carto_read" items=list_value_carto default_value='${carto_forms_unit.fieldValueForms!}' />
+				   <@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelValueSelectCartoRead}' labelFor='value_select_carto_read' class='align-items-center'>
+					<@select id="value_select_carto_read" name="value_select_carto_read" items=list_value_carto default_value='${carto_forms_unit.fieldValueForms!}' disabled=true />
 				</@formGroup>
 
-				   <@formGroup labelKey='#i18n{task.config.labelSelectCartoRead}' labelFor='layer_select_carto_read' class='align-items-center'>
-					<@select id="layer_select_carto_read" name="layer_select_carto_read" items=list_datalayer default_value='${carto_forms_unit.fieldCartoLayer!}' />
+				   <@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelSelectCartoRead}' labelFor='layer_select_carto_read' class='align-items-center'>
+					<@select id="layer_select_carto_read" name="layer_select_carto_read" items=list_datalayer default_value='${carto_forms_unit.fieldCartoLayer!}' disabled=true />
 				</@formGroup>
 
-				   <@formGroup labelKey='#i18n{task.config.labelSelectUnittreeRead}' labelFor='layer_select_unittree_read' class='align-items-center'>
-					<@select id="layer_select_unittree_read" name="layer_select_unittree_read" items=list_unittree_carto default_value='${carto_forms_unit.fieldUnittree!}' />
+				   <@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelSelectUnittreeRead}' labelFor='layer_select_unittree_read' class='align-items-center'>
+					<@select id="layer_select_unittree_read" name="layer_select_unittree_read" items=list_unittree_carto default_value='${carto_forms_unit.fieldUnittree!}' disabled=true />
 				</@formGroup>
 				
 				<@formGroup>
@@ -72,15 +72,15 @@
 		</#if>
 			
 		<@modal id='importJsonModal'>
-			<@modalHeader modalTitle='#i18n{task.config.modalAddConfigurationTitle}' />
+			<@modalHeader modalTitle='#i18n{module.workflow.formscarto.task.config.modalAddConfigurationTitle}' />
 			<@modalBody>
-				<@formGroup labelKey='#i18n{task.config.labelValueSelectCartoRead}' labelFor='value_select_carto' class='align-items-center'>
+				<@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelValueSelectCartoRead}' labelFor='value_select_carto' class='align-items-center'>
 					<@select id="value_select_carto" name="value_select_carto" items=list_value_carto default_value='${id_list_close!}' />
 				</@formGroup>
-				<@formGroup labelKey='#i18n{task.config.labelSelectCartoRead}' labelFor='layer_select_carto' class='align-items-center'>
+				<@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelSelectCartoRead}' labelFor='layer_select_carto' class='align-items-center'>
 					<@select id="layer_select_carto" name="layer_select_carto" items=list_datalayer default_value='${id_carto_layer!}' />
 				</@formGroup>
-				<@formGroup labelKey='#i18n{task.config.labelSelectUnittreeRead}' labelFor='layer_select_unittree' class='align-items-center'>
+				<@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelSelectUnittreeRead}' labelFor='layer_select_unittree' class='align-items-center'>
 					<@select id="layer_select_unittree" name="layer_select_unittree" items=list_unittree_carto default_value='${id_unittree!}' />
 				</@formGroup>
 				<@formGroup>

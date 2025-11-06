@@ -190,17 +190,18 @@ public class FormsCartoTaskComponent extends NoFormTaskComponent
 	public String getDisplayConfigForm( HttpServletRequest request, Locale locale, ITask task ) 
 	{	
 		FormsCartoTaskConfig config = this.getTaskConfigService( ).findByPrimaryKey( task.getId( ) );
-		_config = this.getTaskConfigService( ).findByPrimaryKey( task.getId( ) ); 
-		
-		if( _config==null )
-		{
-			_config=new FormsCartoTaskConfig( );
-		}
 		
 		if ( request.getParameter( PARAMETER_ID_AFFECTATION ) != null )
 		{
 			int id_affectation = Integer.valueOf( request.getParameter( PARAMETER_ID_AFFECTATION ) );
 			EditFormsCartoUnitTreeHome.remove( id_affectation );
+		}
+		
+		_config = this.getTaskConfigService( ).findByPrimaryKey( task.getId( ) ); 
+		
+		if( _config==null )
+		{
+			_config=new FormsCartoTaskConfig( );
 		}
 		
 		/*
@@ -284,8 +285,11 @@ public class FormsCartoTaskComponent extends NoFormTaskComponent
         	model.put( MARK_ID_VALUE_UNITTREE, _configFormsCartoUnitTree.getFieldUnittree() );
         	
         	model.put( MARK_LIST_CARTO_FORMS_UNITTREE, _config.getListEditFormsCartoUnitTree() );
+        	//model.put( MARK_LIST_CARTO_FORMS_UNITTREE, getListValueReferenceList( _config.getQuestionUnitTree().getId( ) ) );
         	
-        	model.put( MARK_UNITTREE_LIST_CARTO, getUnitTreeList() );
+        	//model.put( MARK_UNITTREE_LIST_CARTO, getUnitTreeList() );
+        	if ( _config.getQuestionUnitTree() != null )
+        		model.put( MARK_UNITTREE_LIST_CARTO, getListValueReferenceList( _config.getQuestionUnitTree().getId( ) ) );
         }
         
         if ( _config.getQuestionUnitTree( ) != null )
@@ -622,6 +626,7 @@ public class FormsCartoTaskComponent extends NoFormTaskComponent
                 {
                     String idMap = field.getValue();
                     List<DataLayer> dataLayerListByMapTemplateId = DataLayerMapTemplateHome.getDataLayerListByMapTemplateId( Integer.valueOf(idMap), true );
+                    dataLayerListByMapTemplateId.addAll( DataLayerMapTemplateHome.getDataLayerListByMapTemplateId( Integer.valueOf(idMap), false ) );
                     for( DataLayer datalayer : dataLayerListByMapTemplateId )
                     {
                     	refList.addItem( datalayer.getId(), datalayer.getTitle() );
