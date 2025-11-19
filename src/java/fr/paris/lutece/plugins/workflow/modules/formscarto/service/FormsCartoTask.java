@@ -152,9 +152,6 @@ public class FormsCartoTask extends SimpleTask
         		//responseValue = getResponseValue( fqr.getQuestion().getId() );
         		for ( Response ent : fqr.getEntryResponse() )
 				{
-        			//System.out.println("Le field est " + ent.getField( ));
-        			System.out.println("Le field est " + ent.getEntry().getCode( ) );
-        			System.out.println("La value est " + ent.getResponseValue());
         			
         			if ( ent.getResponseValue() != null && ent.getResponseValue().contains( "coordinates" ) )
         			{
@@ -244,7 +241,6 @@ public class FormsCartoTask extends SimpleTask
 	                // Vérification
 	                if ( geometry != null )
 	                	inside = geometry.contains(point2);
-	                System.out.println("Le point est dans le polygone ? " + inside);
 	                if ( inside )
 	                {
 	                	strValueUnitTree = unit.getFieldUnittree();
@@ -297,8 +293,7 @@ public class FormsCartoTask extends SimpleTask
         	{
         		for ( Response ent : fqr.getEntryResponse() )
 				{
-        			System.out.println("Le field est " + ent.getField( ));
-        			System.out.println("La value est " + ent.getResponseValue());
+
 				}
         	}
         	*/
