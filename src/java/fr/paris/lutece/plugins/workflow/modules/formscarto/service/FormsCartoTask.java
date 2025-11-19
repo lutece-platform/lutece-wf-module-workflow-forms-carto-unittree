@@ -61,6 +61,7 @@ import fr.paris.lutece.plugins.forms.business.Question;
 import fr.paris.lutece.plugins.forms.business.QuestionHome;
 import fr.paris.lutece.plugins.forms.service.FormResponseService;
 import fr.paris.lutece.plugins.genericattributes.business.Field;
+import fr.paris.lutece.plugins.genericattributes.business.FieldHome;
 import fr.paris.lutece.plugins.genericattributes.business.Response;
 import fr.paris.lutece.plugins.genericattributes.business.ResponseFilter;
 import fr.paris.lutece.plugins.genericattributes.business.ResponseHome;
@@ -261,6 +262,13 @@ public class FormsCartoTask extends SimpleTask
             Question question = config.getQuestionUnitTree();
             response.setEntry( question.getEntry( ) );
             response.setResponseValue( strValueUnitTree );
+            Field fieldUnitTreeResponse = null;
+            for ( Field fieldUnitTree : FieldHome.getFieldListByIdEntry( question.getIdEntry() ) )
+            {
+            	if ( fieldUnitTree.getTitle() != null && fieldUnitTree.getTitle().equals( strValueUnitTree ) && fieldUnitTree.getCode().equals("answer_choice") )
+            		fieldUnitTreeResponse = fieldUnitTree;
+            }
+            response.setField( fieldUnitTreeResponse );
             
             questionResponse.setEntryResponse( new ArrayList<Response>( ) );
             questionResponse.setQuestion( question );
