@@ -629,7 +629,8 @@ public class FormsCartoTaskComponent extends NoFormTaskComponent
                     dataLayerListByMapTemplateId.addAll( DataLayerMapTemplateHome.getDataLayerListByMapTemplateId( Integer.valueOf(idMap), false ) );
                     for( DataLayer datalayer : dataLayerListByMapTemplateId )
                     {
-                    	refList.addItem( datalayer.getId(), datalayer.getTitle() );
+                    	if ( datalayer.getGeometryType().getTechnicalName().equals("Polygon") )
+                    		refList.addItem( datalayer.getId(), datalayer.getTitle() );
                     }
                 }
             }
