@@ -139,7 +139,7 @@ public class FormsCartoTask extends SimpleTask
 		String strJsonGeolocPoly = null;
 		String strValueUnitTree = null;
 		String responseValueListClosed = null;
-        if ( config != null )
+        if ( config != null && config.getQuestionListLayerCarto() != null && config.getQuestionListValueClosed() != null && config.getQuestionUnitTree() != null )
         {
         	Question questionListLayerCarto = config.getQuestionListLayerCarto();
         	String responseValue = getResponseValue( config.getQuestionListLayerCarto().getId() );
@@ -188,7 +188,7 @@ public class FormsCartoTask extends SimpleTask
         	boolean inside = false;
         	for ( EditFormsCartoUnitTree unit : listEditFormsCartoUnitTree )
         	{
-        		if ( responseValueListClosed.equals( unit.getFieldValueForms() ) )
+        		if ( responseValueListClosed != null && responseValueListClosed.equals( unit.getFieldValueForms() ) )
         		{
         		
 	    			//SolrSearchEngine engine = SolrSearchEngine.getInstance( );
