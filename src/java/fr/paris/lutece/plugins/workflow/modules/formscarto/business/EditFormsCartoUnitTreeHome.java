@@ -95,6 +95,16 @@ public final class EditFormsCartoUnitTreeHome
     {
         _dao.delete( nKey, _plugin );
     }
+    
+    /**
+     * Remove the editFormsCartoUnitTree whose identifier is specified in parameter
+     *
+     * @param nKey The editFormsCartoUnitTree Id
+     */
+    public static void removeByIdConfig( int nIdConfig )
+    {
+        _dao.deleteByIdConfig( nIdConfig, _plugin );
+    }
 
     /**
      * Returns an instance of a editFormsCartoUnitTree whose identifier is specified in parameter

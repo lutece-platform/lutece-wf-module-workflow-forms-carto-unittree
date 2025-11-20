@@ -495,7 +495,7 @@ public class FormsCartoTaskComponent extends NoFormTaskComponent
         }
         else
         {
-            getTaskConfigService( ).update( config );
+            getTaskConfigService( ).update( _config );
         }
         
         /*
@@ -536,8 +536,19 @@ public class FormsCartoTaskComponent extends NoFormTaskComponent
         switch( action )
         {
             case ACTION_SELECT_FORM:
-                _config = new FormsCartoTaskConfig();
+                if ( _config == null )
+                {
+                	_config = new FormsCartoTaskConfig();
+                }
+                else {
+                	EditFormsCartoUnitTreeHome.removeByIdConfig( _config.getIdTask( ) );
+                	_config.setStep( null );
+                    _config.setQuestionListLayerCarto(null);
+                    _config.setQuestionListLayerCarto(null);
+                    _config.setQuestionUnitTree(null);
+                }
                 _config.setForm( FormHome.findByPrimaryKey( Integer.valueOf( request.getParameter( PARAMETER_FORM ) ) ) );
+                
                 break;
             case ACTION_SELECT_STEP:
                 _config.setStep( StepHome.findByPrimaryKey( Integer.parseInt( request.getParameter( PARAMETER_STEP ) ) ) );

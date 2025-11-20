@@ -56,6 +56,7 @@ public final class EditFormsCartoUnitTreeDAO extends AbstractFilterDao implement
     // Constants
     private static final String SQL_QUERY_INSERT = "INSERT INTO tacheformscarto_edit_forms_carto_unit_tree ( id_config, field_vakue_forms, field_carto_layer, field_unittree ) VALUES ( ?, ?, ?, ? ) ";
     private static final String SQL_QUERY_DELETE = "DELETE FROM tacheformscarto_edit_forms_carto_unit_tree WHERE id_edit_forms_carto_unit_tree = ? ";
+    private static final String SQL_QUERY_DELETE_BY_ID_COONFIG = "DELETE FROM tacheformscarto_edit_forms_carto_unit_tree WHERE id_config = ? ";
     private static final String SQL_QUERY_UPDATE = "UPDATE tacheformscarto_edit_forms_carto_unit_tree SET id_config = ? field_vakue_forms = ?, field_carto_layer = ?, field_unittree = ? WHERE id_edit_forms_carto_unit_tree = ?";
    
 	private static final String SQL_QUERY_SELECTALL = "SELECT id_edit_forms_carto_unit_tree, id_config, field_vakue_forms, field_carto_layer, field_unittree FROM tacheformscarto_edit_forms_carto_unit_tree";
@@ -124,6 +125,19 @@ public final class EditFormsCartoUnitTreeDAO extends AbstractFilterDao implement
     public void delete( int nKey, Plugin plugin )
     {
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
+        {
+	        daoUtil.setInt( 1 , nKey );
+	        daoUtil.executeUpdate( );
+        }
+    }
+    
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public void deleteByIdConfig( int nKey, Plugin plugin )
+    {
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_BY_ID_COONFIG, plugin ) )
         {
 	        daoUtil.setInt( 1 , nKey );
 	        daoUtil.executeUpdate( );

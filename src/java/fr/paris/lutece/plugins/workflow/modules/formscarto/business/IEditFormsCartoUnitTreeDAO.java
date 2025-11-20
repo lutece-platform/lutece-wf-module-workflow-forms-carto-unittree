@@ -121,4 +121,9 @@ public interface IEditFormsCartoUnitTreeDAO
 	 * {@inheritDoc }
 	 */
 	List<EditFormsCartoUnitTree> selectEditFormsCartoUnitTreesListByIdConfig(Plugin plugin, int idConfig);
+
+	/**
+	 * {@inheritDoc }
+	 */
+	void deleteByIdConfig(int nKey, Plugin plugin);
 }
