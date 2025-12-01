@@ -265,7 +265,7 @@ public class FormsCartoTask extends SimpleTask
             Field fieldUnitTreeResponse = null;
             for ( Field fieldUnitTree : FieldHome.getFieldListByIdEntry( question.getIdEntry() ) )
             {
-            	if ( fieldUnitTree.getTitle() != null && fieldUnitTree.getTitle().equals( strValueUnitTree ) && fieldUnitTree.getCode().equals("answer_choice") )
+            	if ( fieldUnitTree.getValue() != null && fieldUnitTree.getValue().equals( strValueUnitTree ) && fieldUnitTree.getCode().equals("answer_choice") )
             		fieldUnitTreeResponse = fieldUnitTree;
             }
             response.setField( fieldUnitTreeResponse );
