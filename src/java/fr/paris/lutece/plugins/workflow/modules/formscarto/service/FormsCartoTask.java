@@ -249,69 +249,68 @@ public class FormsCartoTask extends SimpleTask
         		}
         	}
         	
-        	List<FormQuestionResponse> listFormQuestionResponseToSave = new ArrayList<>( );
-        	
-        	FormResponse formResponse = FormResponseHome.findByPrimaryKey( nIdResource );
-            if ( formResponse == null )
-            {
-                return false;
-            }
-        	
-        	FormQuestionResponse questionResponse = new FormQuestionResponse( );
-            Response response = new Response( );
-            Question question = config.getQuestionUnitTree();
-            response.setEntry( question.getEntry( ) );
-            response.setResponseValue( strValueUnitTree );
-            Field fieldUnitTreeResponse = null;
-            for ( Field fieldUnitTree : FieldHome.getFieldListByIdEntry( question.getIdEntry() ) )
-            {
-            	if ( fieldUnitTree.getValue() != null && fieldUnitTree.getValue().equals( strValueUnitTree ) && fieldUnitTree.getCode().equals("answer_choice") )
-            		fieldUnitTreeResponse = fieldUnitTree;
-            }
-            response.setField( fieldUnitTreeResponse );
-            
-            questionResponse.setEntryResponse( new ArrayList<Response>( ) );
-            questionResponse.setQuestion( question );
-            questionResponse.setIdStep( question.getIdStep( ) );
-            questionResponse.setEntryResponse( Arrays.asList( response ) );
-            questionResponse.setIdFormResponse( formResponse.getId( ) );
-            
-            questionResponse.getEntryResponse( ).get( 0 ).setResponseValue( strValueUnitTree );
-            
-            /*
-            for ( Field field : questionResponse.getQuestion( ).getEntry( ).getFields( ) )
-            {
-                if ( field.getValue( ).equals( config.getResponse( ) ) )
-                {
-                    questionResponse.getEntryResponse( ).get( 0 ).setField( field );
-                }
-            }
-            */
-            
-            listFormQuestionResponseToSave.add( questionResponse );
-            
-            FormsCartoTaskService formcartotaskservice = new FormsCartoTaskService();
-            formcartotaskservice.saveResponses( formResponse, listFormQuestionResponseToSave );
-            FormResponseService.getInstance( ).saveFormResponse( formResponse );
-        	
-        	/*
-        	Form form = config.getForm();
-        	List<FormQuestionResponse> lstQuestionResponse = FormQuestionResponseHome.findFormQuestionResponseByQuestion( config.getQuestionListValueClosed().getId() );
-        	for ( FormQuestionResponse fqr : lstQuestionResponse )
+        	if ( strValueUnitTree != null )
         	{
-        		for ( Response ent : fqr.getEntryResponse() )
-				{
-
-				}
+	        	List<FormQuestionResponse> listFormQuestionResponseToSave = new ArrayList<>( );
+	        	
+	        	FormResponse formResponse = FormResponseHome.findByPrimaryKey( nIdResource );
+	            if ( formResponse == null )
+	            {
+	                return false;
+	            }
+	        	
+	        	FormQuestionResponse questionResponse = new FormQuestionResponse( );
+	            Response response = new Response( );
+	            Question question = config.getQuestionUnitTree();
+	            response.setEntry( question.getEntry( ) );
+	            response.setResponseValue( strValueUnitTree );
+	            Field fieldUnitTreeResponse = null;
+	            for ( Field fieldUnitTree : FieldHome.getFieldListByIdEntry( question.getIdEntry() ) )
+	            {
+	            	if ( fieldUnitTree.getValue() != null && fieldUnitTree.getValue().equals( strValueUnitTree ) && fieldUnitTree.getCode().equals("answer_choice") )
+	            		fieldUnitTreeResponse = fieldUnitTree;
+	            }
+	            response.setField( fieldUnitTreeResponse );
+	            
+	            questionResponse.setEntryResponse( new ArrayList<Response>( ) );
+	            questionResponse.setQuestion( question );
+	            questionResponse.setIdStep( question.getIdStep( ) );
+	            questionResponse.setEntryResponse( Arrays.asList( response ) );
+	            questionResponse.setIdFormResponse( formResponse.getId( ) );
+	            
+	            questionResponse.getEntryResponse( ).get( 0 ).setResponseValue( strValueUnitTree );
+	            
+	            /*
+	            for ( Field field : questionResponse.getQuestion( ).getEntry( ).getFields( ) )
+	            {
+	                if ( field.getValue( ).equals( config.getResponse( ) ) )
+	                {
+	                    questionResponse.getEntryResponse( ).get( 0 ).setField( field );
+	                }
+	            }
+	            */
+	            
+	            listFormQuestionResponseToSave.add( questionResponse );
+	            
+	            FormsCartoTaskService formcartotaskservice = new FormsCartoTaskService();
+	            formcartotaskservice.saveResponses( formResponse, listFormQuestionResponseToSave );
+	            FormResponseService.getInstance( ).saveFormResponse( formResponse );
+	        	
+	        	/*
+	        	Form form = config.getForm();
+	        	List<FormQuestionResponse> lstQuestionResponse = FormQuestionResponseHome.findFormQuestionResponseByQuestion( config.getQuestionListValueClosed().getId() );
+	        	for ( FormQuestionResponse fqr : lstQuestionResponse )
+	        	{
+	        		for ( Response ent : fqr.getEntryResponse() )
+					{
+	
+					}
+	        	}
+	        	*/
         	}
-        	*/
-        	
         	
         }
-        if (strValueUnitTree != null)
-        	return true;
-        else
-        	return false;
+        return true;
     }   
 	
    /**
