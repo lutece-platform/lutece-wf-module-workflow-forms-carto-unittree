@@ -50,39 +50,43 @@
 			</@formGroup>
 		
 			<hr>
-			<#list lst_carto_forms_unittree as carto_forms_unit>
-			<@div class='bloc-champs'>
-				<@row>
-					<@columns md=2 offsetMd=3>
-						<@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelValueSelectCartoRead}' labelFor='value_select_carto_read' class='align-items-center' rows=2>
-							<@select id="value_select_carto_read" name="value_select_carto_read" items=list_value_carto default_value='${carto_forms_unit.fieldValueForms!}' disabled=true size='sm' />
-						</@formGroup>
-					</@columns>
-					<@columns md=2>
-						<@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelSelectCartoRead}' labelFor='layer_select_carto_read' class='align-items-center' rows=2>
-							<@select id="layer_select_carto_read" name="layer_select_carto_read" items=list_datalayer default_value='${carto_forms_unit.fieldCartoLayer!}' disabled=true size='sm' />
-						</@formGroup>
-					</@columns>
-					<@columns md=2>
-						<@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelSelectUnittreeRead}' labelFor='layer_select_unittree_read' class='align-items-center' rows=2>
-							<@inputGroup type='btn'>
-							<@select id="layer_select_unittree_read" name="layer_select_unittree_read" items=list_unittree_carto default_value='${carto_forms_unit.fieldUnittree!}' disabled=true size='sm' />
-							<@aButton href='jsp/admin/plugins/workflow/ModifyTask.jsp?id_task=${config.idTask}&id_unit=${carto_forms_unit.id}' title='#i18n{task.config.btnDeleteConfiguration}' buttonIcon='trash' color='danger' size='sm' />
-							</@inputGroup>
-						</@formGroup>
-					</@columns>
-					<!--<@columns md=1>
-						<@formGroup rows=2>
-							<@aButton href='jsp/admin/plugins/workflow/ModifyTask.jsp?id_task=${config.idTask}&id_unit=${carto_forms_unit.id}' title='#i18n{task.config.btnDeleteConfiguration}' buttonIcon='trash' color='danger' size='sm' />
-						</@formGroup>
-						</@columns>-->
-				</@row>
+			<@div class='bloc-champs-wrapper'>
+				<#list lst_carto_forms_unittree as carto_forms_unit>
+				<@div class='bloc-champs'>
+					<@row>
+						<@columns md=2 offsetMd=3>
+							<@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelValueSelectCartoRead}' labelFor='value_select_carto_read' class='align-items-center' rows=2>
+								<@select id="value_select_carto_read" name="value_select_carto_read" items=list_value_carto default_value='${carto_forms_unit.fieldValueForms!}' disabled=true size='sm' />
+							</@formGroup>
+						</@columns>
+						<@columns md=2>
+							<@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelSelectCartoRead}' labelFor='layer_select_carto_read' class='align-items-center' rows=2>
+								<@select id="layer_select_carto_read" name="layer_select_carto_read" items=list_datalayer default_value='${carto_forms_unit.fieldCartoLayer!}' disabled=true size='sm' />
+							</@formGroup>
+						</@columns>
+						<@columns md=2>
+							<@formGroup labelKey='#i18n{module.workflow.formscarto.task.config.labelSelectUnittreeRead}' labelFor='layer_select_unittree_read' class='align-items-center' rows=2>
+								<@inputGroup type='btn'>
+								<@select id="layer_select_unittree_read" name="layer_select_unittree_read" items=list_unittree_carto default_value='${carto_forms_unit.fieldUnittree!}' disabled=true size='sm' />
+								<@aButton href='jsp/admin/plugins/workflow/ModifyTask.jsp?id_task=${config.idTask}&id_unit=${carto_forms_unit.id}' title='#i18n{task.config.btnDeleteConfiguration}' buttonIcon='trash' color='danger' size='sm' />
+								</@inputGroup>
+							</@formGroup>
+						</@columns>
+						<!--<@columns md=1>
+							<@formGroup rows=2>
+								<@aButton href='jsp/admin/plugins/workflow/ModifyTask.jsp?id_task=${config.idTask}&id_unit=${carto_forms_unit.id}' title='#i18n{task.config.btnDeleteConfiguration}' buttonIcon='trash' color='danger' size='sm' />
+							</@formGroup>
+							</@columns>-->
+					</@row>
+				</@div>
+				</#list>
 			</@div>
-			</#list>
 		</#if>
 	
 		<style>
-			.bloc-champs:(:first-of-type) label {visibility: hidden; width:0; height:0;}
+			.bloc-champs-wrapper .bloc-champs:not(:first-child) label {
+				visibility: hidden; width:0; height:0;
+			}
 		</style>
 
 		<@modal id='importJsonModal'>
