@@ -102,4 +102,10 @@
         <jiraProjectName>FORMSCARTO</jiraProjectName>
         <jiraComponentId></jiraComponentId>
     </properties>
+    <scm>
+        <connection>scm:git:https://github.com/lutece-platform/lutece-wf-module-workflow-forms-carto-unittree.git</connection>
+        <developerConnection>scm:git:https://github.com/lutece-platform/lutece-wf-module-workflow-forms-carto-unittree.git</developerConnection>
+        <url>https://github.com/lutece-platform/lutece-wf-module-workflow-forms-carto-unittree.git</url>
+      <tag>HEAD</tag>
+  </scm>
 </project>
