@@ -11,7 +11,7 @@
     <groupId>fr.paris.lutece.plugins</groupId>
     <artifactId>module-workflow-forms-carto-unittree</artifactId>
     <packaging>lutece-plugin</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>Lutece workflow formscarto module</name>
 
     <repositories>
@@ -101,12 +101,12 @@
     <properties>
         <componentName>formscarto</componentName>
         <jiraProjectName>FORMSCARTO</jiraProjectName>
-        <jiraComponentId></jiraComponentId>
+        <jiraComponentId />
     </properties>
     <scm>
         <connection>scm:git:https://github.com/lutece-platform/lutece-wf-module-workflow-forms-carto-unittree.git</connection>
         <developerConnection>scm:git:https://github.com/lutece-platform/lutece-wf-module-workflow-forms-carto-unittree.git</developerConnection>
         <url>https://github.com/lutece-platform/lutece-wf-module-workflow-forms-carto-unittree.git</url>
-      <tag>HEAD</tag>
+      <tag>module-workflow-forms-carto-unittree-1.0.0</tag>
   </scm>
 </project>
